@@ -7,13 +7,14 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -21,10 +22,13 @@ import java.net.URL;
 import java.util.*;
 
 @Service
+@Scope("prototype") //singleton
 public class FileReadService {
-     private String urlAddress = "https://github.com/vivianduarte777/filesTest/";
+    private String urlAddress = null; //"https://github.com/vivianduarte777/filesTest/";
     public Map<String, FilesInformationDto> mapFiles = null;
     public List<FilesInformationDto> filesDto = null;
+
+    Logger logger = LoggerFactory.getLogger(FileReadService.class);
 
     public void init(String urlAddress) {
         this.urlAddress = urlAddress;
@@ -33,6 +37,7 @@ public class FileReadService {
     //Insert the Map object throw the File read
     @Async
     public Map<String, FilesInformationDto> buildMapFiles(String urlAddress) {
+       long start = System.currentTimeMillis();
         mapFiles = new HashMap<>();
         int cont = 0;
         try {
@@ -81,7 +86,9 @@ public class FileReadService {
         }catch(Exception e){
             return null;
         }
-
+        long end = System.currentTimeMillis();
+        logger.info("Recovering the Files Map: ",Thread.currentThread().getId());
+        logger.info("Time start to: "+start + " and end to: " +end + " taken to: " + (end-start) + " time!");
         return mapFiles;
     }
 
@@ -105,7 +112,15 @@ public class FileReadService {
     private int returnLines(HttpURLConnection httpConn,String fileName) throws IOException {
         int linesNum = 0;
         try {
+
+
+          //  MultipartFile file = httpConn.getURL().openStream().read();
+
+
             InputStream inputStream = new URL(httpConn.getURL().toString()).openStream();
+
+
+//
             BufferedReader read = new BufferedReader(
                     new InputStreamReader(inputStream));
             String inputLine;
@@ -125,10 +140,10 @@ public class FileReadService {
     @Async
     private int returnBytesCount (HttpURLConnection httpConn) throws IOException {
         InputStream inputStream = new URL(httpConn.getURL().toString()).openStream();
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        IOUtils.copy(inputStream, baos);
+        ByteArrayOutputStream bas = new ByteArrayOutputStream();
+        IOUtils.copy(inputStream, bas);
 
-        return baos.toByteArray().length;
+        return bas.toByteArray().length;
 
     }
 

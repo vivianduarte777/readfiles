@@ -4,6 +4,7 @@ import apirestfiles.readfiles.FileReadService;
 import apirestfiles.readfiles.model.FileInformationModel;
 import apirestfiles.readfiles.model.FilesInformationDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,7 +15,6 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api")
 public class ReadFileController{
-    //private final String uriAddress = "https://github.com/vivianduarte777/filesTest/";
 
     private Map<String,FilesInformationDto> mapFiles=null;
     private List<FilesInformationDto> listDto = null;
@@ -29,6 +29,7 @@ public class ReadFileController{
     }
 
     @PostMapping("read")
+    //@Async
     public String postForm(@ModelAttribute FileInformationModel infidel, Model model) {
         FileInformationModel m = new FileInformationModel();
         String urlAddress = infidel.getUrlAddress();
@@ -39,15 +40,9 @@ public class ReadFileController{
         return m.getFileInformation();
     }
 
-    public List<FilesInformationDto> getListDto() {
-        return listDto;
-    }
-
-    public void setListDto(List<FilesInformationDto> listDto) {
-        this.listDto = listDto;
-    }
 
     //Return the String with the Information about the files readed
+    @Async
     private String getFilesInformation(String urlAddress){
         String strReturn = null;
         try {
@@ -55,10 +50,12 @@ public class ReadFileController{
             this.mapFiles=service.buildMapFiles(urlAddress);
             this.listDto=service.buildFilesInformationDto(mapFiles);
 
-            strReturn = "{";
-            for(FilesInformationDto dto: listDto) {
-                strReturn = strReturn + "File extension: " + dto.getExtension() + ", Counts: " + dto.getCount() + " Lines: "//
-                        + dto.getLines() + " Bytes: " + dto.getBytes() +"}";
+            if(!this.listDto.isEmpty()&&this.listDto!=null) {
+                strReturn = "{";
+                for (FilesInformationDto dto : listDto) {
+                    strReturn = strReturn + "File extension: " + dto.getExtension() + ", Counts: " + dto.getCount() + " Lines: "//
+                            + dto.getLines() + " Bytes: " + dto.getBytes() + "}";
+                }
             }
 
         }catch(Exception e){
