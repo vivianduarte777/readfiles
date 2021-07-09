@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+  <title>Read Files from a git repository</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Form</h1>
+<form action="#" th:action="@{read}" th:object="${infidel}" method="post">
+  <p>Inform the address: <input type="text" th:field="*{urlAddress}" /></p>
+  <p>Message: <input type="text" th:field="*{fileInformation}" /></p>
+  <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+</form>
+</body>
+</html>
