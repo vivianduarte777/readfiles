@@ -115,7 +115,7 @@ public class FileReadService {
     //Take the number of line from the particular file
     @Async
     private int returnLines(HttpURLConnection httpConn,String fileName) throws IOException {
-        int linesNum = 0;
+        int linesNum = 1;
 
        InputStream inputStream = httpConn.getInputStream();
 
