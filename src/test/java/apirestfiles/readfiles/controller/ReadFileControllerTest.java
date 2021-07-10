@@ -10,6 +10,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -31,6 +33,7 @@ class ReadFileControllerTest {
     private TestRestTemplate restTemplate;
 
 
+    //Tests if the object Model returned is not null or is not empty
     @Test
     public void tesModel() throws  Exception{
         FileInformationModel model = this.restTemplate//
@@ -39,9 +42,18 @@ class ReadFileControllerTest {
         Assert.assertNotEquals(model,model.getFileInformation().toString().isEmpty());
     }
 
+    //Tests if the response of the HttpStatus is Ok
     @Test
-    public void testAddress(){
-
+    public void testAddressResponse(){
+       String urlAddress = "https://github.com";
+       ResponseEntity<String> response = restTemplate.getForEntity(urlAddress+"/1/",String.class);
+       Assert.assertEquals(response.getStatusCode(), HttpStatus.OK);
     }
 
+    //Tests if the address informed is empty
+    @Test
+    public void testAddress(){
+        String urlAddress = "https://github.com";
+        Assert.assertNotEquals(urlAddress,urlAddress.isEmpty());
+    }
 }

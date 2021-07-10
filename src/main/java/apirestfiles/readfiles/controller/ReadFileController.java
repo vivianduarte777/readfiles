@@ -18,6 +18,7 @@ public class ReadFileController{
 
     private Map<String,FilesInformationDto> mapFiles=null;
     private List<FilesInformationDto> listDto = null;
+    private String errorAddress =  "Type the address";
 
    @Autowired
     FileReadService service;
@@ -33,6 +34,11 @@ public class ReadFileController{
     public String postForm(@ModelAttribute FileInformationModel infidel, Model model) {
         FileInformationModel m = new FileInformationModel();
         String urlAddress = infidel.getUrlAddress();
+        if(urlAddress==null ||urlAddress.isEmpty()){
+            m.setFileInformation(errorAddress);
+            return m.getFileInformation();
+        }
+
         m.setUrlAddress(urlAddress);
         model.addAttribute("urlAddress", m);
         m.setFileInformation(getFilesInformation(infidel.getUrlAddress()));
@@ -60,6 +66,9 @@ public class ReadFileController{
 
         }catch(Exception e){
             return e.getMessage();
+        }
+        if(strReturn == null){
+            strReturn = "There is no file in the address. Check if you typed correctly with '/' at the end.";
         }
         return strReturn;
 

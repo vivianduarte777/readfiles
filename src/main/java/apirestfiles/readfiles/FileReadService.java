@@ -10,21 +10,24 @@ import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpRequest;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import sun.misc.BASE64Encoder;
 
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URL;
+import java.net.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
 import java.util.*;
 
 @Service
 @Scope("prototype") //singleton
 public class FileReadService {
-    private String urlAddress = null; //"https://github.com/vivianduarte777/filesTest/";
+    private String urlAddress = null;
     public Map<String, FilesInformationDto> mapFiles = null;
     public List<FilesInformationDto> filesDto = null;
 
@@ -53,7 +56,9 @@ public class FileReadService {
                 int indexOf = name.indexOf(".");
                 String extension = name.substring(indexOf, lgt);
                 try {
-                    String urFileStr = urlAddress+ "blob/main/"+ name;
+                    //https://github.com/vivianduarte777/filesTest/blob/main/curriculum.docx
+                  // String urFileStr = urlAddress+ "blob/main/"+ name;
+                   String  urFileStr=urlAddress+"raw/main/" + name;
                     try {
                         URI uriFile = new URI(urFileStr);
                         URL urlFile = getURL(urFileStr);
@@ -69,7 +74,7 @@ public class FileReadService {
                                 FilesInformationDto dto = calculateNewInformationDto(old,extension,cont,lines,buffers);
                                 mapFiles.replace("extension",old,dto);
                             }else{
-                                cont++;
+                                cont = 1;
                                 String strName = name + " lines = " + lines + " buffers " + buffers;
                                 FilesInformationDto dto = buildInformationDto(extension,cont,lines,buffers);
                                 mapFiles.put(extension,dto);
@@ -111,30 +116,24 @@ public class FileReadService {
     @Async
     private int returnLines(HttpURLConnection httpConn,String fileName) throws IOException {
         int linesNum = 0;
-        try {
 
+       InputStream inputStream = httpConn.getInputStream();
 
-          //  MultipartFile file = httpConn.getURL().openStream().read();
+        Scanner scan = new Scanner(new BufferedInputStream(inputStream), "UTF-8");
+        StringBuilder sb = new StringBuilder();
 
+        while (scan.hasNextLine()) {
+            System.out.println("Test line " + linesNum + " " +(scan.next().getBytes(StandardCharsets.UTF_8).toString()));
+          sb.append(scan.nextLine());
 
-            InputStream inputStream = new URL(httpConn.getURL().toString()).openStream();
-
-
-//
-            BufferedReader read = new BufferedReader(
-                    new InputStreamReader(inputStream));
-            String inputLine;
-            while ((inputLine = read.readLine()) != null) {
-                System.out.println(inputLine);
-                ++linesNum;
-            }
-            read.close();
-            inputStream.close();
-        }catch(Exception e){
-            System.out.println(e.getMessage());
+           sb.append("\n");
+            ++linesNum;
         }
+        scan.close();
+
         return linesNum;
     }
+
 
     //Take the number of Bytes from the particular file
     @Async
