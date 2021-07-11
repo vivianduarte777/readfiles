@@ -23,7 +23,8 @@ public class ReadFileController{
    @Autowired
     FileReadService service;
 
-    @GetMapping("/templates")
+    //@GetMapping("/templates")
+    @GetMapping("templates")
     public ModelAndView index(Model model){
         model.addAttribute("infidel",new FileInformationModel());
         return new ModelAndView("index");
