@@ -1,4 +1,4 @@
-package apirestfiles.readfiles.controller;
+package apirestfiles.readfiles;
 
 import apirestfiles.readfiles.FileReadService;
 import apirestfiles.readfiles.model.FileInformationModel;
@@ -23,8 +23,7 @@ public class ReadFileController{
    @Autowired
     FileReadService service;
 
-    //@GetMapping("/templates")
-    @GetMapping("templates")
+    @GetMapping("/templates")
     public ModelAndView index(Model model){
         model.addAttribute("infidel",new FileInformationModel());
         return new ModelAndView("index");
