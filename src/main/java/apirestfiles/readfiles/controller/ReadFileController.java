@@ -26,9 +26,10 @@ public class ReadFileController{
 
     @GetMapping("/templates")
     public ModelAndView index(Model model){
-        model.addAttribute("returninf",new ReturnInf());
+       ReturnInf returninf = new ReturnInf();
+       model.addAttribute("returninf",new ReturnInf());
        ModelAndView modelAndView = new ModelAndView("index");
-       modelAndView.addObject(model);
+       modelAndView.addObject(returninf);
       return modelAndView;
     }
 
