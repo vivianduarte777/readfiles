@@ -1,5 +1,9 @@
 package apirestfiles.readfiles.model;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.bind.annotation.ModelAttribute;
+
+
 public class FilesInformationDto {
     private String extension = null;
     private int count = 0;
