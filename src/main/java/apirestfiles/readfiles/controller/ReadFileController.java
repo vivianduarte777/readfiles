@@ -39,12 +39,12 @@ public class ReadFileController{
 
         if(urlAddress==null ||urlAddress.isEmpty()){
             returninf.setInformation(errorAddress);
-         //   model.addAttribute(infidel);
+          model.addAttribute(returninf);
             return returninf.getInformation();
        }
 
        returninf.setInformation(getFilesInformation(returninf.getUrladdress()));
-       // model.addAttribute(infidel);
+        model.addAttribute(returninf);
        //returninf.setFileInformation("teste");
         return returninf.getInformation();
     }

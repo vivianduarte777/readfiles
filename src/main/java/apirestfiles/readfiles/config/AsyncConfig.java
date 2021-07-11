@@ -1,6 +1,7 @@
 package apirestfiles.readfiles.config;
 
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -12,7 +13,7 @@ import java.util.concurrent.Executor;
 public class AsyncConfig {
 
     @Qualifier
-   // @Bean(name="taskExecutor")
+    @Bean(name="taskExecutor")
     public Executor taskExecutor() {
         final ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(2);
