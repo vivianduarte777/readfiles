@@ -1,5 +1,6 @@
 package apirestfiles.readfiles.model;
 
+
 import org.springframework.web.bind.annotation.ResponseBody;
 
 public class FileInformationModel {

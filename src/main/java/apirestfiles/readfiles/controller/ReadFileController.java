@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,9 +25,13 @@ public class ReadFileController{
     FileReadService service;
 
     @GetMapping("/templates")
-    public ModelAndView index(@ModelAttribute FileInformationModel infidel,Model model){
-        //model.addAttribute("infidel",new FileInformationModel());
-        model.addAttribute("infidel",infidel);
+    public ModelAndView index(Model model){
+        //model.addAttribute("infidel",infidel);
+
+        Map<String,FileInformationModel> mapModel = new HashMap<>();
+        mapModel.put("infidel",new FileInformationModel());
+        model.addAttribute("infidel",new FileInformationModel());
+        model.mergeAttributes(mapModel);
         return new ModelAndView("index");
     }
 
