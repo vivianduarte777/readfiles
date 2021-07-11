@@ -4,6 +4,7 @@ import apirestfiles.readfiles.FileReadService;
 import apirestfiles.readfiles.model.FileInformationModel;
 import apirestfiles.readfiles.model.FilesInformationDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -36,10 +37,10 @@ public class ReadFileController{
     }
 
     @PostMapping("read")
-    @ResponseBody
      public FileInformationModel postForm(@ModelAttribute FileInformationModel infidel, Model model) {
         FileInformationModel m = new FileInformationModel();
         String urlAddress = infidel.getUrlAddress();
+
         if(urlAddress==null ||urlAddress.isEmpty()){
             infidel.setFileInformation(errorAddress);
             m.setFileInformation(errorAddress);
@@ -47,11 +48,13 @@ public class ReadFileController{
            // return m.getFileInformation();
         }
 
-        m.setUrlAddress(urlAddress);
+      /*  m.setUrlAddress(urlAddress);
         model.addAttribute("urlAddress", m);
         m.setFileInformation(getFilesInformation(infidel.getUrlAddress()));
         model.addAttribute("fileInformation",m.getFileInformation());
-        return m;
+        return m;*/
+        infidel.setFileInformation(getFilesInformation(infidel.getUrlAddress()));
+        return infidel;
        // return m.getFileInformation();
     }
 
