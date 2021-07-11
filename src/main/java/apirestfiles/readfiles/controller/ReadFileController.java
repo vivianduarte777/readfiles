@@ -34,7 +34,7 @@ public class ReadFileController{
     }
 
    @RequestMapping(value = "read",method = RequestMethod.POST)
-    public String postForm(@ModelAttribute("returninf") ReturnInf returninf) {
+    public String postForm(@ModelAttribute("returninf") ReturnInf returninf,Model model) {
         String urlAddress = returninf.getUrladdress();
 
         if(urlAddress==null ||urlAddress.isEmpty()){
