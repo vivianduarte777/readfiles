@@ -4,7 +4,6 @@ import apirestfiles.readfiles.FileReadService;
 import apirestfiles.readfiles.model.ReturnInf;
 import apirestfiles.readfiles.model.FilesInformationDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,40 +20,53 @@ public class ReadFileController{
     private List<FilesInformationDto> listDto = null;
     private String errorAddress =  "Type the address";
 
-   @Autowired
+    @Autowired
     FileReadService service;
 
     @GetMapping("/templates")
     public ModelAndView index(Model model){
-       ReturnInf returninf = new ReturnInf();
-       returninf.setInformation("");
-       returninf.setUrladdress("");
-       model.addAttribute("returninf",returninf);
-       ModelAndView modelAndView = new ModelAndView("index");
-       modelAndView.addObject(returninf);
-      return modelAndView;
+        ReturnInf returninf = new ReturnInf();
+        model.addAttribute("returninf",returninf);
+        ModelAndView modelAndView = new ModelAndView("index");
+        modelAndView.addObject(returninf);
+        //modelAndView.addObject("model",returninf);
+        return modelAndView;
     }
 
-   @RequestMapping(value = "read",method = RequestMethod.POST)
-    public String postForm(@ModelAttribute("returninf") ReturnInf returninf,Model model) {
+   // @RequestMapping(value = "result",method = RequestMethod.POST)
+   @PostMapping("/templates")
+    public ModelAndView result(@ModelAttribute("returninf") ReturnInf returninf,Model model){
         String urlAddress = returninf.getUrladdress();
+         returninf.setInformation("sucesso");
+            model.addAttribute("retuninf",returninf);
+        ModelAndView modelAndView = new ModelAndView("result");
+        modelAndView.addObject(returninf);
 
-        if(urlAddress==null ||urlAddress.isEmpty()){
+        return modelAndView;
+    }
+
+    @RequestMapping(value="result",method = RequestMethod.POST)
+    public ModelAndView postForm(@ModelAttribute("returninf") ReturnInf returninf,Model model) {
+        String urlAddress = returninf.getUrladdress();
+        ModelAndView modelAndView = new ModelAndView("result");
+
+        if(urlAddress!=null &&!urlAddress.isEmpty()) {
+            returninf.setInformation(getFilesInformation(urlAddress));
+            model.addAttribute("retuninf", returninf);
+            modelAndView.addObject(returninf);
+        }else {
             returninf.setInformation(errorAddress);
-          model.addAttribute(returninf);
-            return returninf.getInformation();
-       }
+            model.addAttribute("retuninf", returninf);
+            modelAndView.addObject(returninf);
+        }
+        return modelAndView;
 
-       returninf.setInformation(getFilesInformation(returninf.getUrladdress()));
-        model.addAttribute(returninf);
-       //returninf.setFileInformation("teste");
-        return returninf.getInformation();
     }
 
 
     //Return the String with the Information about the files readed
     @Async
-   private String getFilesInformation(String urlAddress){
+    private String getFilesInformation(String urlAddress){
         String strReturn = null;
         try {
             service =  new FileReadService();
