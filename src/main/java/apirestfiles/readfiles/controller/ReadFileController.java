@@ -41,9 +41,9 @@ public class ReadFileController{
             return returninf;
        }
 
-       //returninf.setFileInformation(getFilesInformation(returninf.getUrlAddress()));
+       returninf.setFileInformation(getFilesInformation(returninf.getUrlAddress()));
        // model.addAttribute(infidel);
-       returninf.setFileInformation("teste");
+       //returninf.setFileInformation("teste");
         return returninf;
     }
 
