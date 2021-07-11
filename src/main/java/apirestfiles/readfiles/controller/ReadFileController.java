@@ -38,13 +38,13 @@ public class ReadFileController{
 
     @PostMapping("read")
      public FileInformationModel postForm(@ModelAttribute FileInformationModel infidel, Model model) {
-        FileInformationModel m = new FileInformationModel();
+      //  FileInformationModel m = new FileInformationModel();
         String urlAddress = infidel.getUrlAddress();
 
         if(urlAddress==null ||urlAddress.isEmpty()){
             infidel.setFileInformation(errorAddress);
-            m.setFileInformation(errorAddress);
-            return m;
+         //   m.setFileInformation(errorAddress);
+            return infidel;
            // return m.getFileInformation();
         }
 
