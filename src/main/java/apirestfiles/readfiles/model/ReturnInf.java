@@ -6,25 +6,21 @@ import org.springframework.context.annotation.Bean;
 
 public class ReturnInf {
     private String information;
-    private String urlAddress;
+    private String urladdress;
 
-    @Bean
-    public String getUrlAddress() {
-        return urlAddress;
-    }
-
-    @Bean
-    public void setUrlAddress(String urlAddress) {
-        this.urlAddress = urlAddress;
-    }
-
-    @Bean
-    public String getFileInformation() {
+    public String getInformation() {
         return information;
     }
 
-    @Bean
-    public void setFileInformation(String fileInformation) {
-        this.information = fileInformation;
+    public void setInformation(String information) {
+        this.information = information;
+    }
+
+    public String getUrladdress() {
+        return urladdress;
+    }
+
+    public void setUrladdress(String urladdress) {
+        this.urladdress = urladdress;
     }
 }

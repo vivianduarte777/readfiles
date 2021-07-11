@@ -35,18 +35,18 @@ public class ReadFileController{
 
    @RequestMapping(value = "read",method = RequestMethod.POST)
     public String postForm(@ModelAttribute("returninf") ReturnInf returninf) {
-        String urlAddress = returninf.getUrlAddress();
+        String urlAddress = returninf.getUrladdress();
 
         if(urlAddress==null ||urlAddress.isEmpty()){
-            returninf.setFileInformation(errorAddress);
+            returninf.setInformation(errorAddress);
          //   model.addAttribute(infidel);
-            return returninf.getFileInformation();
+            return returninf.getInformation();
        }
 
-       returninf.setFileInformation(getFilesInformation(returninf.getUrlAddress()));
+       returninf.setInformation(getFilesInformation(returninf.getUrladdress()));
        // model.addAttribute(infidel);
        //returninf.setFileInformation("teste");
-        return returninf.getFileInformation();
+        return returninf.getInformation();
     }
 
 

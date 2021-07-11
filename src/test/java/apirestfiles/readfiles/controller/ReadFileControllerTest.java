@@ -30,7 +30,7 @@ class ReadFileControllerTest {
         ReturnInf model = this.restTemplate//
         .getForObject(new URI("https://github.com"), ReturnInf.class);
         Assert.assertNotNull(model);
-        Assert.assertNotEquals(model,model.getFileInformation().toString().isEmpty());
+        Assert.assertNotEquals(model,model.getInformation().toString().isEmpty());
     }
 
     //Tests if the response of the HttpStatus is Ok
