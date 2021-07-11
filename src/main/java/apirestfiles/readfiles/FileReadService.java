@@ -10,18 +10,12 @@ import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpRequest;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-import sun.misc.BASE64Encoder;
 
 import java.io.*;
 import java.net.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
 import java.util.*;
 
 @Service
@@ -56,9 +50,12 @@ public class FileReadService {
                 int indexOf = name.indexOf(".");
                 String extension = name.substring(indexOf, lgt);
                 try {
-                    //https://github.com/vivianduarte777/filesTest/blob/main/curriculum.docx
-                  // String urFileStr = urlAddress+ "blob/main/"+ name;
-                   String  urFileStr=urlAddress+"raw/main/" + name;
+                    String urFileStr = null;
+                 if(extension.equals(".xml")) {
+                  urFileStr = "https://raw.githubusercontent.com/"+ urlAddress.substring(19,urlAddress.length()) +"main/" +name;
+                 }else {
+                      urFileStr = urlAddress + "raw/main/" + name;
+                 }
                     try {
                         URI uriFile = new URI(urFileStr);
                         URL urlFile = getURL(urFileStr);
@@ -123,11 +120,10 @@ public class FileReadService {
         StringBuilder sb = new StringBuilder();
 
         while (scan.hasNextLine()) {
-            System.out.println("Test line " + linesNum + " " +(scan.next().getBytes(StandardCharsets.UTF_8).toString()));
-          sb.append(scan.nextLine());
-
-           sb.append("\n");
-            ++linesNum;
+            System.out.println("FileName " + fileName + " Line " + linesNum);
+            sb.append(scan.nextLine());
+            sb.append("\n");
+             ++linesNum;
         }
         scan.close();
 
