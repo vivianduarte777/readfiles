@@ -25,12 +25,12 @@ public class ReadFileController{
 
     @GetMapping("/templates")
     public ModelAndView index(@ModelAttribute FileInformationModel infidel,Model model){
-        model.addAttribute("infidel",new FileInformationModel());
-        //model.addAttribute("infidel",infidel);
+        //model.addAttribute("infidel",new FileInformationModel());
+        model.addAttribute("infidel",infidel);
         return new ModelAndView("index");
     }
 
-    @GetMapping("read")
+    @PostMapping("read")
     @ResponseBody
      public FileInformationModel postForm(@ModelAttribute FileInformationModel infidel, Model model) {
         FileInformationModel m = new FileInformationModel();
