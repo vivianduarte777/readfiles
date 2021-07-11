@@ -74,5 +74,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+
 	</build>
+	<packaging>jar</packaging>
 </project>
