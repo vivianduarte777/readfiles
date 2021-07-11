@@ -29,7 +29,7 @@ public class ReadFileController{
         return new ModelAndView("index");
     }
 
-    @PostMapping("read")
+    @GetMapping("read")
     //@Async
     public String postForm(@ModelAttribute FileInformationModel infidel, Model model) {
         FileInformationModel m = new FileInformationModel();
