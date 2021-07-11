@@ -33,18 +33,6 @@ public class ReadFileController{
         return modelAndView;
     }
 
-   // @RequestMapping(value = "result",method = RequestMethod.POST)
-   @PostMapping("/templates")
-    public ModelAndView result(@ModelAttribute("returninf") ReturnInf returninf,Model model){
-        String urlAddress = returninf.getUrladdress();
-         returninf.setInformation("sucesso");
-            model.addAttribute("retuninf",returninf);
-        ModelAndView modelAndView = new ModelAndView("result");
-        modelAndView.addObject(returninf);
-
-        return modelAndView;
-    }
-
     @RequestMapping(value="result",method = RequestMethod.POST)
     public ModelAndView postForm(@ModelAttribute("returninf") ReturnInf returninf,Model model) {
         String urlAddress = returninf.getUrladdress();
@@ -77,8 +65,9 @@ public class ReadFileController{
                 strReturn = "{";
                 for (FilesInformationDto dto : listDto) {
                     strReturn = strReturn + "File extension: " + dto.getExtension() + ", Counts: " + dto.getCount() + " Lines: "//
-                            + dto.getLines() + " Bytes: " + dto.getBytes() + "}";
+                            + dto.getLines() + " Bytes: " + dto.getBytes()+"/n";
                 }
+                strReturn = strReturn +  "}";
             }
 
         }catch(Exception e){
