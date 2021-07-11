@@ -33,17 +33,18 @@ public class ReadFileController{
     }
 
    @GetMapping("read")
-    public FileInformationModel postForm(@ModelAttribute("infidel") FileInformationModel infidel,Model model) {
+    public String postForm(@ModelAttribute("infidel") FileInformationModel infidel,Model model) {
         String urlAddress = infidel.getUrlAddress();
 
         if(urlAddress==null ||urlAddress.isEmpty()){
             infidel.setFileInformation(errorAddress);
-            return infidel;
+            model.addAttribute(infidel);
+            return infidel.getFileInformation();
        }
 
         infidel.setFileInformation(getFilesInformation(infidel.getUrlAddress()));
         model.addAttribute(infidel);
-        return infidel;
+        return infidel.getFileInformation();
     }
 
 
