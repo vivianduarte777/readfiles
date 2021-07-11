@@ -24,8 +24,9 @@ public class ReadFileController{
     FileReadService service;
 
     @GetMapping("/templates")
-    public ModelAndView index(Model model){
-        model.addAttribute("infidel",new FileInformationModel());
+    public ModelAndView index(@ModelAttribute FileInformationModel infidel,Model model){
+        //model.addAttribute("infidel",new FileInformationModel());
+        model.addAttribute("infidel",infidel);
         return new ModelAndView("index");
     }
 
