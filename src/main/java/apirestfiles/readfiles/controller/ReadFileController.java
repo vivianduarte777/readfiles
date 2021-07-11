@@ -25,26 +25,29 @@ public class ReadFileController{
 
     @GetMapping("/templates")
     public ModelAndView index(@ModelAttribute FileInformationModel infidel,Model model){
-        //model.addAttribute("infidel",new FileInformationModel());
-        model.addAttribute("infidel",infidel);
+        model.addAttribute("infidel",new FileInformationModel());
+        //model.addAttribute("infidel",infidel);
         return new ModelAndView("index");
     }
 
     @GetMapping("read")
     @ResponseBody
-     public String postForm(@ModelAttribute FileInformationModel infidel, Model model) {
+     public FileInformationModel postForm(@ModelAttribute FileInformationModel infidel, Model model) {
         FileInformationModel m = new FileInformationModel();
         String urlAddress = infidel.getUrlAddress();
         if(urlAddress==null ||urlAddress.isEmpty()){
+            infidel.setFileInformation(errorAddress);
             m.setFileInformation(errorAddress);
-            return m.getFileInformation();
+            return m;
+           // return m.getFileInformation();
         }
 
         m.setUrlAddress(urlAddress);
         model.addAttribute("urlAddress", m);
         m.setFileInformation(getFilesInformation(infidel.getUrlAddress()));
         model.addAttribute("fileInformation",m.getFileInformation());
-        return m.getFileInformation();
+        return m;
+       // return m.getFileInformation();
     }
 
 
