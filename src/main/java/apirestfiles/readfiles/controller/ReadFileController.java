@@ -30,8 +30,8 @@ public class ReadFileController{
     }
 
     @GetMapping("read")
-    //@Async
-    public String postForm(@ModelAttribute FileInformationModel infidel, Model model) {
+    @ResponseBody
+     public String postForm(@ModelAttribute FileInformationModel infidel, Model model) {
         FileInformationModel m = new FileInformationModel();
         String urlAddress = infidel.getUrlAddress();
         if(urlAddress==null ||urlAddress.isEmpty()){
@@ -49,7 +49,6 @@ public class ReadFileController{
 
     //Return the String with the Information about the files readed
     @Async
-    @ResponseBody
     private String getFilesInformation(String urlAddress){
         String strReturn = null;
         try {
