@@ -4,6 +4,7 @@ import apirestfiles.readfiles.FileReadService;
 import apirestfiles.readfiles.model.ReturnInf;
 import apirestfiles.readfiles.model.FilesInformationDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -48,6 +49,7 @@ public class ReadFileController{
 
     //Return the String with the Information about the files readed
     @Async
+    @Bean
     private String getFilesInformation(String urlAddress){
         String strReturn = null;
         try {
