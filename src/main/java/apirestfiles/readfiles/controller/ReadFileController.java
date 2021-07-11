@@ -1,16 +1,14 @@
 package apirestfiles.readfiles.controller;
 
 import apirestfiles.readfiles.FileReadService;
-import apirestfiles.readfiles.model.FileInformationModel;
+import apirestfiles.readfiles.model.ReturnInf;
 import apirestfiles.readfiles.model.FilesInformationDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,24 +25,24 @@ public class ReadFileController{
 
     @GetMapping("/templates")
     public ModelAndView index(Model model){
-        model.addAttribute("infidel",new FileInformationModel());
+        model.addAttribute("returninf",new ReturnInf());
 
       return new ModelAndView("index");
     }
 
-   @GetMapping("read")
-    public String postForm(@ModelAttribute("infidel") FileInformationModel infidel,Model model) {
-        String urlAddress = infidel.getUrlAddress();
+   @RequestMapping(value = "read",method = RequestMethod.POST)
+    public ReturnInf postForm(@ModelAttribute("returninf") ReturnInf returninf) {
+        String urlAddress = returninf.getUrlAddress();
 
         if(urlAddress==null ||urlAddress.isEmpty()){
-            infidel.setFileInformation(errorAddress);
-            model.addAttribute(infidel);
-            return infidel.getFileInformation();
+            returninf.setFileInformation(errorAddress);
+         //   model.addAttribute(infidel);
+            return returninf;
        }
 
-        infidel.setFileInformation(getFilesInformation(infidel.getUrlAddress()));
-        model.addAttribute(infidel);
-        return infidel.getFileInformation();
+       returninf.setFileInformation(getFilesInformation(returninf.getUrlAddress()));
+       // model.addAttribute(infidel);
+        return returninf;
     }
 
 

@@ -3,8 +3,8 @@ package apirestfiles.readfiles.model;
 
 import org.springframework.web.bind.annotation.ResponseBody;
 
-public class FileInformationModel {
-    private String fileInformation;
+public class ReturnInf {
+    private String information;
     private String urlAddress;
 
     public String getUrlAddress() {
@@ -17,10 +17,10 @@ public class FileInformationModel {
 
     @ResponseBody
     public String getFileInformation() {
-        return fileInformation;
+        return information;
     }
 
     public void setFileInformation(String fileInformation) {
-        this.fileInformation = fileInformation;
+        this.information = fileInformation;
     }
 }
