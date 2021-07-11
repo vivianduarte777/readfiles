@@ -26,17 +26,21 @@ public class ReadFileController{
     FileReadService service;
 
     @GetMapping("/templates")
-    public ModelAndView index(Model model){
-        //model.addAttribute("infidel",infidel);
+    public ModelAndView index(@ModelAttribute FileInformationModel infidel, Model model){
+        infidel = new FileInformationModel();
+        infidel.setFileInformation("");
+        infidel.setUrlAddress("");
+        model.addAttribute("infidel",infidel);
 
-        Map<String,FileInformationModel> mapModel = new HashMap<>();
+     /*   Map<String,FileInformationModel> mapModel = new HashMap<>();
         mapModel.put("infidel",new FileInformationModel());
         model.addAttribute("infidel",new FileInformationModel());
-        model.mergeAttributes(mapModel);
+        model.mergeAttributes(mapModel);*/
         return new ModelAndView("index");
     }
 
-    @PostMapping("read")
+   @PostMapping("read")
+    //@RequestAttribute("infidel" value="urlAddress")
      public FileInformationModel postForm(@ModelAttribute FileInformationModel infidel, Model model) {
       //  FileInformationModel m = new FileInformationModel();
         String urlAddress = infidel.getUrlAddress();
