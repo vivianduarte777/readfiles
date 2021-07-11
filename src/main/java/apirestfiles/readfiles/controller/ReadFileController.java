@@ -49,8 +49,7 @@ public class ReadFileController{
 
     //Return the String with the Information about the files readed
     @Async
-    @Bean
-    private String getFilesInformation(String urlAddress){
+   private String getFilesInformation(String urlAddress){
         String strReturn = null;
         try {
             service =  new FileReadService();
