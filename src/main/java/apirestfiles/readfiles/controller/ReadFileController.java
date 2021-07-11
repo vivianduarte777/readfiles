@@ -49,6 +49,7 @@ public class ReadFileController{
 
     //Return the String with the Information about the files readed
     @Async
+    @ResponseBody
     private String getFilesInformation(String urlAddress){
         String strReturn = null;
         try {
