@@ -1,11 +1,11 @@
 package apirestfiles.readfiles;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-//@EnableAutoConfiguration(exclude = {EnableAutoConfiguration.class})
+//@ComponentScan(basePackages={"apirestfiles.readfiles.controller"})
 public class ReaFileApplication {
 
 	public static void main(String[] args) {

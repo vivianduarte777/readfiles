@@ -1,4 +1,4 @@
-package apirestfiles.readfiles;
+package apirestfiles.readfiles.controller;
 
 import apirestfiles.readfiles.FileReadService;
 import apirestfiles.readfiles.model.FileInformationModel;
