@@ -41,7 +41,8 @@ public class ReadFileController{
 
    @PostMapping("read")
     //@RequestAttribute("infidel" value="urlAddress")
-     public FileInformationModel postForm(@ModelAttribute FileInformationModel infidel, Model model) {
+    // public FileInformationModel postForm(@ModelAttribute FileInformationModel infidel, Model model) {
+   public FileInformationModel postForm(@ModelAttribute("infidel") FileInformationModel infidel) {
       //  FileInformationModel m = new FileInformationModel();
         String urlAddress = infidel.getUrlAddress();
 
