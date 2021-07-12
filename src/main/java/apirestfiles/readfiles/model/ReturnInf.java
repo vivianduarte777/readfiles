@@ -1,8 +1,12 @@
 package apirestfiles.readfiles.model;
 
 
+import org.springframework.beans.factory.annotation.Qualifier;
+
 public class ReturnInf {
+    @Qualifier
     public String information;
+    @Qualifier
     public String urladdress;
 
     public String getInformation() {

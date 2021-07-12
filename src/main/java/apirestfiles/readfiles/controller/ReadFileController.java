@@ -26,6 +26,9 @@ public class ReadFileController{
     @GetMapping("/templates")
     public ModelAndView index(Model model){
         ReturnInf returninf = new ReturnInf();
+       // model.addAttribute("information",returninf.getInformation());
+       // model.addAttribute("urladdress",returninf.getUrladdress());
+
         model.addAttribute("returninf",returninf);
         ModelAndView modelAndView = new ModelAndView("index");
         modelAndView.addObject(returninf);
@@ -40,11 +43,15 @@ public class ReadFileController{
 
         if(urlAddress!=null &&!urlAddress.isEmpty()) {
             returninf.setInformation(getFilesInformation(urlAddress));
-            model.addAttribute("retuninf", returninf);
+           // model.addAttribute("retuninf", returninf);
+            model.addAttribute("information",returninf.getInformation());
+            model.addAttribute("urladdress",returninf.getUrladdress());
             modelAndView.addObject(returninf);
         }else {
             returninf.setInformation(errorAddress);
-            model.addAttribute("retuninf", returninf);
+           // model.addAttribute("retuninf", returninf);
+            model.addAttribute("information",returninf.getInformation());
+            model.addAttribute("urladdress",returninf.getUrladdress());
             modelAndView.addObject(returninf);
         }
         return modelAndView;
