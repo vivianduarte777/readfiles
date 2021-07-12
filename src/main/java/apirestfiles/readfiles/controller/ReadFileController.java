@@ -26,8 +26,8 @@ public class ReadFileController{
     @Autowired
     FileReadService service;
 
-   @RequestMapping(value="/templates",method = RequestMethod.GET)
-   public ModelAndView index(Model model){
+    @RequestMapping(value="/",method = RequestMethod.GET)
+    public ModelAndView index(Model model){
         ReturnInf returninf = new ReturnInf();
 
         model.addAttribute("returninf",returninf);
@@ -36,9 +36,9 @@ public class ReadFileController{
         return modelAndView;
     }
 
-    @RequestMapping(value="result",method = RequestMethod.POST)
-    //@ResponseBody
-    public ModelAndView postForm(@ModelAttribute("returninf") ReturnInf returninf, Model model, BindingResult bindResult) {
+  @RequestMapping(value="result",method = RequestMethod.GET)
+ @ResponseBody
+  public ModelAndView postForm(@ModelAttribute("returninf") ReturnInf returninf, Model model, BindingResult bindResult) {
         model.addAttribute(returninf);
         ModelAndView modelAndView = new ModelAndView("result");
 
