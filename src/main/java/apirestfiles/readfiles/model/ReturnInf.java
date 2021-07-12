@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class ReturnInf {
     @Autowired
     private String information;
-    @Autowired(required = true)
+    @Autowired
     private String address;
 
     public String getInformation() {

@@ -17,9 +17,12 @@ import java.util.Map;
 @RequestMapping("/api")
 public class ReadFileController{
 
-    private Map<String,FilesInformationDto> mapFiles=null;
+   private Map<String,FilesInformationDto> mapFiles=null;
+
     private List<FilesInformationDto> listDto = null;
-    private String errorAddress =  "Type the address";
+
+   private String errorAddress =  "Type the address";
+
     private String errorBinding =  "Error binding";
 
     @Autowired
@@ -34,7 +37,7 @@ public class ReadFileController{
        // model.addAttribute("urladdress",returninf.getUrladdress());
 
         model.addAttribute("returninf",returninf);
-        ModelAndView modelAndView = new ModelAndView("index");
+        ModelAndView modelAndView = new ModelAndView("/index");
         modelAndView.addObject(returninf);
         //modelAndView.addObject("model",returninf);
         return modelAndView;
@@ -73,6 +76,7 @@ public class ReadFileController{
 
 
     //Return the String with the Information about the files readed
+
     @Async
     private String getFilesInformation(String urlAddress){
         String strReturn = null;
