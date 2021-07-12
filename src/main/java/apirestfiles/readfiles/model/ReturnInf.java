@@ -1,12 +1,9 @@
 package apirestfiles.readfiles.model;
 
 
-import org.springframework.context.annotation.Bean;
-
-
 public class ReturnInf {
-    private String information;
-    private String urladdress;
+    public String information;
+    public String urladdress;
 
     public String getInformation() {
         return information;
