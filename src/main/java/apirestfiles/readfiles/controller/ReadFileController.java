@@ -38,7 +38,7 @@ public class ReadFileController{
     }
 
     @RequestMapping(value="result",method = RequestMethod.POST)
-    @ResponseBody
+    //@ResponseBody
     public ModelAndView postForm(@ModelAttribute("returninf") ReturnInf returninf, Model model, BindingResult bindResult) {
         model.addAttribute(returninf);
         ModelAndView modelAndView = new ModelAndView("result");
@@ -48,6 +48,7 @@ public class ReadFileController{
             model.addAttribute("information",returninf.getInformation());
             model.addAttribute("address",returninf.getAddress());
             modelAndView.addObject(returninf);
+            return modelAndView;
         }
         String urlAddress = returninf.getAddress();
 
