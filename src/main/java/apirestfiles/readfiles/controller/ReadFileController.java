@@ -28,7 +28,7 @@ public class ReadFileController{
     //@GetMapping("/templates")
     @RequestMapping(value="/templates",method = RequestMethod.GET)
 
-    public ModelAndView index(Model model){
+     public ModelAndView index(Model model){
         ReturnInf returninf = new ReturnInf();
        // model.addAttribute("information",returninf.getInformation());
        // model.addAttribute("urladdress",returninf.getUrladdress());
