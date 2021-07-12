@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -67,7 +68,6 @@ public class ReadFileController{
 
 
     //Return the String with the Information about the files readed
-
     @Async
     private String getFilesInformation(String urlAddress){
         String strReturn = null;
