@@ -11,16 +11,16 @@ public class ReturnInf {
     private String information;
     @Autowired
     private String address;
-
-    public String getInformation() {
+    @Autowired
+public String getInformation() {
         return information;
     }
     @Autowired
     public void setInformation(String information) {
         this.information = information;
     }
-
-    public String getAddress() {
+    @Autowired
+ public String getAddress() {
         return address;
     }
     @Autowired
