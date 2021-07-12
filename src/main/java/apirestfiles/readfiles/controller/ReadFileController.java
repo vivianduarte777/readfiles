@@ -37,6 +37,7 @@ public class ReadFileController{
     }
 
     @RequestMapping(value="result",method = RequestMethod.POST)
+    @ResponseBody
     public ModelAndView postForm(@ModelAttribute("returninf") ReturnInf returninf, Model model, BindingResult bindResult) {
         model.addAttribute(returninf);
         ModelAndView modelAndView = new ModelAndView("result");
