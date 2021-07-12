@@ -27,8 +27,7 @@ public class ReadFileController{
     FileReadService service;
 
    @RequestMapping(value="/templates",method = RequestMethod.GET)
-
-    public ModelAndView index(Model model){
+   public ModelAndView index(Model model){
         ReturnInf returninf = new ReturnInf();
 
         model.addAttribute("returninf",returninf);
