@@ -46,22 +46,22 @@ public class ReadFileController{
            returninf.setInformation(errorBinding);
            // model.addAttribute("retuninf", returninf);
            model.addAttribute("information",returninf.getInformation());
-           model.addAttribute("urladdress",returninf.getUrladdress());
+           model.addAttribute("urladdress",returninf.getAddress());
            modelAndView.addObject(returninf);
        }
-        String urlAddress = returninf.getUrladdress();
+        String urlAddress = returninf.getAddress();
 
         if(urlAddress!=null &&!urlAddress.isEmpty()) {
             returninf.setInformation(getFilesInformation(urlAddress));
            // model.addAttribute("retuninf", returninf);
             model.addAttribute("information",returninf.getInformation());
-            model.addAttribute("urladdress",returninf.getUrladdress());
+            model.addAttribute("urladdress",returninf.getAddress());
             modelAndView.addObject(returninf);
         }else {
             returninf.setInformation(errorAddress);
            // model.addAttribute("retuninf", returninf);
             model.addAttribute("information",returninf.getInformation());
-            model.addAttribute("urladdress",returninf.getUrladdress());
+            model.addAttribute("urladdress",returninf.getAddress());
             modelAndView.addObject(returninf);
         }
         return modelAndView;

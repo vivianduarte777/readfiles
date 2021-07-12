@@ -8,7 +8,7 @@ public class ReturnInf {
     @Autowired
     private String information;
     @Autowired
-    private String urladdress;
+    private String address;
 
     public String getInformation() {
         return information;
@@ -18,11 +18,11 @@ public class ReturnInf {
         this.information = information;
     }
 
-    public String getUrladdress() {
-        return urladdress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setUrladdress(String urladdress) {
-        this.urladdress = urladdress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
