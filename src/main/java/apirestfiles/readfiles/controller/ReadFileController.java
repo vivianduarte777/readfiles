@@ -25,7 +25,9 @@ public class ReadFileController{
     @Autowired
     FileReadService service;
 
-    @GetMapping("/templates")
+    //@GetMapping("/templates")
+    @RequestMapping(value="/templates",method = RequestMethod.GET)
+
     public ModelAndView index(Model model){
         ReturnInf returninf = new ReturnInf();
        // model.addAttribute("information",returninf.getInformation());
