@@ -6,6 +6,7 @@ import apirestfiles.readfiles.model.FilesInformationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,6 +20,7 @@ public class ReadFileController{
     private Map<String,FilesInformationDto> mapFiles=null;
     private List<FilesInformationDto> listDto = null;
     private String errorAddress =  "Type the address";
+    private String errorBinding =  "Error binding";
 
     @Autowired
     FileReadService service;
@@ -37,9 +39,17 @@ public class ReadFileController{
     }
 
     @RequestMapping(value="result",method = RequestMethod.POST)
-    public ModelAndView postForm(@ModelAttribute("returninf") ReturnInf returninf,Model model) {
-        String urlAddress = returninf.getUrladdress();
+    public ModelAndView postForm(@ModelAttribute("returninf") ReturnInf returninf, Model model, BindingResult bindResult) {
         ModelAndView modelAndView = new ModelAndView("result");
+
+        if(bindResult.hasErrors()){
+           returninf.setInformation(errorBinding);
+           // model.addAttribute("retuninf", returninf);
+           model.addAttribute("information",returninf.getInformation());
+           model.addAttribute("urladdress",returninf.getUrladdress());
+           modelAndView.addObject(returninf);
+       }
+        String urlAddress = returninf.getUrladdress();
 
         if(urlAddress!=null &&!urlAddress.isEmpty()) {
             returninf.setInformation(getFilesInformation(urlAddress));
