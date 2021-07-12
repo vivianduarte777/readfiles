@@ -31,7 +31,7 @@ public class ReadFileController{
         ReturnInf returninf = new ReturnInf();
 
         model.addAttribute("returninf",returninf);
-        ModelAndView modelAndView = new ModelAndView("/index");
+        ModelAndView modelAndView = new ModelAndView("index");
         modelAndView.addObject(returninf);
         return modelAndView;
     }
