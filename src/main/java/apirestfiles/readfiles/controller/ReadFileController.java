@@ -32,7 +32,7 @@ public class ReadFileController{
 
         model.addAttribute("returninf",returninf);
         ModelAndView modelAndView = new ModelAndView("index");
-        modelAndView.addObject(returninf);
+     //   modelAndView.addObject(returninf);
         return modelAndView;
     }
 
