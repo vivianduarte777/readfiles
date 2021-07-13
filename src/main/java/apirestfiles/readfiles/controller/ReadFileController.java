@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -27,13 +26,11 @@ public class ReadFileController{
     @Autowired
     FileReadService service;
 
-
-
-   // @RequestMapping(value="/",method = RequestMethod.GET)
-    @GetMapping("/")
+     @GetMapping("/")
     public ModelAndView index(Model model){
         ReturnInf returnInf = new ReturnInf();
-        returnInf.setAddress("https://github.com/vivianduarte777/filesTest/");
+         returnInf.setAddress("");
+       // returnInf.setAddress("https://github.com/vivianduarte777/filesTest/");
        // String information = getFilesInformation(returnInf.getAddress());
         String information = "";
         model.addAttribute("returninf",returnInf);
@@ -42,12 +39,11 @@ public class ReadFileController{
         return modelAndView;
    }
 
-    //@RequestMapping(value="result",method = RequestMethod.POST)
     @PostMapping("/result")
     @ResponseBody
     public ModelAndView postForm(@ModelAttribute("returninf") ReturnInf returnInf, Model model, BindingResult bindResult) {
-        returnInf.setAddress("https://github.com/vivianduarte777/filesTest/");
-
+        //returnInf.setAddress("https://github.com/vivianduarte777/filesTest/");
+        String urlAddress = returnInf.getAddress();
         model.addAttribute(returnInf);
         ModelAndView modelAndView = new ModelAndView("result");
 
@@ -58,7 +54,6 @@ public class ReadFileController{
             modelAndView.addObject(returnInf);
             return modelAndView;
         }
-        String urlAddress = returnInf.getAddress();
 
         if(urlAddress!=null &&!urlAddress.isEmpty()) {
             returnInf.setInformation(getFilesInformation(urlAddress));
@@ -67,14 +62,13 @@ public class ReadFileController{
             modelAndView.addObject(returnInf);
         }else {
             returnInf.setInformation(errorAddress);
-            model.addAttribute("information",returnInf.getInformation());
+            model.addAttribute("information",urlAddress);
             model.addAttribute("address",returnInf.getAddress());
             modelAndView.addObject(returnInf);
         }
         return modelAndView;
 
     }
-
 
     //Return the String with the Information about the files readed
     @Async
