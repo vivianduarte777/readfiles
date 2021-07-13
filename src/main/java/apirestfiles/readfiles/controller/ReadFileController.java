@@ -15,7 +15,8 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api")
+//@RequestMapping("/api")
+@RequestMapping("/")
 public class ReadFileController{
 
     private Map<String,FilesInformationDto> mapFiles=null;
@@ -26,42 +27,49 @@ public class ReadFileController{
     @Autowired
     FileReadService service;
 
-    @RequestMapping(value="/",method = RequestMethod.GET)
-    public ModelAndView index(Model model){
-        ReturnInf returninf = new ReturnInf();
 
-        model.addAttribute("returninf",returninf);
+
+   // @RequestMapping(value="/",method = RequestMethod.GET)
+    @GetMapping("/")
+    public ModelAndView index(Model model){
+        ReturnInf returnInf = new ReturnInf();
+        returnInf.setAddress("https://github.com/vivianduarte777/filesTest/");
+       // String information = getFilesInformation(returnInf.getAddress());
+        String information = "";
+        model.addAttribute("returninf",returnInf);
         ModelAndView modelAndView = new ModelAndView("index");
-     //   modelAndView.addObject(returninf);
+        modelAndView.addObject(model);
         return modelAndView;
-    }
+   }
 
     //@RequestMapping(value="result",method = RequestMethod.POST)
-    @PostMapping("result")
+    @PostMapping("/result")
     @ResponseBody
-    public ModelAndView postForm(@ModelAttribute("returninf") ReturnInf returninf, Model model, BindingResult bindResult) {
-        model.addAttribute(returninf);
+    public ModelAndView postForm(@ModelAttribute("returninf") ReturnInf returnInf, Model model, BindingResult bindResult) {
+        returnInf.setAddress("https://github.com/vivianduarte777/filesTest/");
+
+        model.addAttribute(returnInf);
         ModelAndView modelAndView = new ModelAndView("result");
 
         if(bindResult.hasErrors()){
-            returninf.setInformation(errorBinding);
-            model.addAttribute("information",returninf.getInformation());
-            model.addAttribute("address",returninf.getAddress());
-            modelAndView.addObject(returninf);
+            returnInf.setInformation(errorBinding);
+            model.addAttribute("information",returnInf.getInformation());
+            model.addAttribute("address",returnInf.getAddress());
+            modelAndView.addObject(returnInf);
             return modelAndView;
         }
-        String urlAddress = returninf.getAddress();
+        String urlAddress = returnInf.getAddress();
 
         if(urlAddress!=null &&!urlAddress.isEmpty()) {
-            returninf.setInformation(getFilesInformation(urlAddress));
-            model.addAttribute("information",returninf.getInformation());
-            model.addAttribute("address",returninf.getAddress());
-            modelAndView.addObject(returninf);
+            returnInf.setInformation(getFilesInformation(urlAddress));
+            model.addAttribute("information",returnInf.getInformation());
+            model.addAttribute("address",returnInf.getAddress());
+            modelAndView.addObject(returnInf);
         }else {
-            returninf.setInformation(errorAddress);
-            model.addAttribute("information",returninf.getInformation());
-            model.addAttribute("address",returninf.getAddress());
-            modelAndView.addObject(returninf);
+            returnInf.setInformation(errorAddress);
+            model.addAttribute("information",returnInf.getInformation());
+            model.addAttribute("address",returnInf.getAddress());
+            modelAndView.addObject(returnInf);
         }
         return modelAndView;
 
